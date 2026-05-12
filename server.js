@@ -39,7 +39,8 @@ async function ensureTable() {
 }
 
 app.post('/api/subscribe', async (req, res) => {
-  const email = req.body?.email?.trim?.toLowerCase();
+  const rawEmail = req.body?.email;
+  const email = typeof rawEmail === 'string' ? rawEmail.trim().toLowerCase() : '';
 
   if (!isValidEmail(email)) {
     return res.status(400).json({ success: false, message: 'Adresse e-mail invalide.' });
